@@ -1,7 +1,7 @@
 Usage
 =====
 
-1. run "composer require iborodikhin/php-swiffy"
+1. run ```composer require iborodikhin/php-swiffy```
 2. write something like this
 
 ```
