@@ -1,0 +1,18 @@
+{
+    "name": "iborodikhin/php-swiffy",
+    "description": "Google's swiffy convert in php",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Igor Borodikhin",
+            "email": "iborodikhin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Swiffy\\": "src/" }
+    },
+    "require": {
+        "php": ">=5.3",
+        "kriswallsmith/buzz": "^0.15.0"
+    }
+}
