@@ -11,5 +11,5 @@ $swiffy = new Swiffy\Client();
 $html = $swiffy->convert("my-movie.swf");
 
 //Returns only the swiffy json data
-$json = $swiffy->convert("my-movie.swf",true);
+$json = $swiffy->convert("my-movie.swf", true);
 ```
