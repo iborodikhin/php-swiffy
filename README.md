@@ -6,5 +6,10 @@ Usage
 
 ```
 $swiffy = new Swiffy\Client();
-echo $swiffy->convert("my-movie.swf");
+
+//Returns swiffy HTML file content
+$html = $swiffy->convert("my-movie.swf");
+
+//Returns only the swiffy json data
+$json = $swiffy->convert("my-movie.swf",true);
 ```
