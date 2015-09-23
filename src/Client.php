@@ -39,7 +39,6 @@ class Client
      */
     public function convert($filename, $jsonOnly = false)
     {
-
         $content = file_get_contents($filename);
 
         if (false === $content) {
@@ -54,8 +53,6 @@ class Client
                 "input"  => $this->base64safe_encode($content),
             ),
         ));
-
-
 
         $browser  = new Browser();
         $client = new Curl();
@@ -78,10 +75,6 @@ class Client
 
         return $result;
     }
-
-
-
-
 
     /**
      * URL-safe base64 encode.
