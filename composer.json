@@ -1,6 +1,7 @@
 {
     "name": "iborodikhin/php-swiffy",
     "description": "Google's swiffy convert in php",
+    "minimum-stability" : "dev",
     "type": "library",
     "authors": [
         {

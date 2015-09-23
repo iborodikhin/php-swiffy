@@ -2,12 +2,14 @@
 namespace Swiffy;
 
 use Buzz\Browser;
+use Buzz\Client\Curl;
 
 /**
  * Google's swiffy client.
  */
 class Client
 {
+    const TIMEOUT = 10;
     /**
      * Google API version.
      *
@@ -35,8 +37,9 @@ class Client
      * @param  string         $filename
      * @return boolean|string
      */
-    public function convert($filename)
+    public function convert($filename, $jsonOnly = false)
     {
+
         $content = file_get_contents($filename);
 
         if (false === $content) {
@@ -52,16 +55,33 @@ class Client
             ),
         ));
 
+
+
         $browser  = new Browser();
+        $client = new Curl();
+        $client->setTimeout(self::TIMEOUT);
+
+        $browser->setClient($client);
         $response = $browser->post($this->apiUrl, array("Content-Type" => "application/json"), $request);
+
         $response = json_decode($response->getContent(), true);
 
         if (array_key_exists("error", $response)) {
             return false;
         }
 
-        return $this->base64safe_decode($response["result"]["response"]["output"]);
+        $result = $this->base64safe_decode($response["result"]["response"]["output"]);
+
+        if ($jsonOnly){
+            $result = $this->getJson($result);
+        }
+
+        return $result;
     }
+
+
+
+
 
     /**
      * URL-safe base64 encode.
@@ -72,6 +92,12 @@ class Client
     protected function base64safe_encode($data)
     {
         return str_replace(array("+", "/"), array("-", "_"), base64_encode($data));
+    }
+
+    public function getJson($subject){        
+        $pattern = '/swiffyobject\s*=\s*({.*});\s*<\/script>/i';
+        preg_match($pattern, $subject, $matches);
+        return isset($matches[1]) ? $matches[1] : '';
     }
 
     /**
