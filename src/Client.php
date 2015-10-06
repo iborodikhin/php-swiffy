@@ -9,7 +9,13 @@ use Buzz\Client\Curl;
  */
 class Client
 {
-    const TIMEOUT = 10;
+    /**
+     * Curl timeout
+     *
+     * @var int
+     */
+    protected $timeout = 10;
+
     /**
      * Google API version.
      *
@@ -30,6 +36,15 @@ class Client
      * @var string
      */
     protected $userAgent = "Swiffy Flash Extension";
+
+    /**
+     * Set curl timeout
+     * @param int $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+    }
 
     /**
      * Returns flash converted to html5
@@ -56,7 +71,7 @@ class Client
 
         $browser  = new Browser();
         $client = new Curl();
-        $client->setTimeout(self::TIMEOUT);
+        $client->setTimeout($this->timeout);
 
         $browser->setClient($client);
         $response = $browser->post($this->apiUrl, array("Content-Type" => "application/json"), $request);
